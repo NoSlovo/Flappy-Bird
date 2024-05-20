@@ -61,5 +61,12 @@ namespace Spawner
         private Pipe CreateObject() => Object.Instantiate(_pipen);
 
         public void RemoveObject(Pipe poolObject) => poolObject.SwitchActiveState(false);
+        public void DisableAllElements()
+        {
+            foreach (var pipese in _pipeses)
+            {
+                pipese.SwitchActiveState(false);
+            }
+        }
     }
 }

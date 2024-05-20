@@ -10,27 +10,37 @@ namespace Services
     {
         private IPoolService<Pipe> _poolService;
         private Transform _spawnPoint;
+        private Counter _counter;
+        private bool _isWork = false;
 
-        public SpawnerPipe(IPoolService<Pipe> poolService, Transform spawnPoint)
+        public SpawnerPipe(IPoolService<Pipe> poolService,Counter counter, Transform spawnPoint)
         {
             _poolService = poolService;
             _spawnPoint = spawnPoint;
+            _counter = counter;
         }
 
         public async void Init()
         {
-            var deley = TimeSpan.FromSeconds(5f);
-            while (true)
+            _isWork = true;
+            var deley = TimeSpan.FromSeconds(3f);
+            while ( _isWork)
             {
                 ShowPipe();
                await UniTask.Delay(deley);
             }
         }
 
+        public void Stop()
+        {
+            _isWork = false;
+        }
+        
         private void ShowPipe()
         {
             var showObject = _poolService.GetPoolObject(_spawnPoint);
             showObject.SwitchActiveState(true);
+            showObject.ZoneDetection.SetCounter(_counter);
         }
     }
 }

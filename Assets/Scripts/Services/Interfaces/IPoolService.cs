@@ -6,5 +6,7 @@ namespace Spawner
     {
         public T GetPoolObject(Transform instancePoint);
         public void RemoveObject(T poolObject);
+
+        public void DisableAllElements();
     }
 }
