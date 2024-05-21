@@ -2,6 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using Pipes;
 using Spawner;
+using UI;
 using UnityEngine;
 
 namespace Services
@@ -40,7 +41,7 @@ namespace Services
         {
             var showObject = _poolService.GetPoolObject(_spawnPoint);
             showObject.SwitchActiveState(true);
-            showObject.ZoneDetection.SetCounter(_counter);
+            showObject.CheckZone.SetCounter(_counter);
         }
     }
 }
