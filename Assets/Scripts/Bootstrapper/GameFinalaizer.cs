@@ -7,35 +7,35 @@ namespace Bootstrapper
     public class GameFinalaizer
     {
         private Flappy _flappy;
-        private StartScreen _startScreen;
-        private FinalScreen _finalScreen;
-        private IRestarter _restarter;
+        private StartingWindow _startingWindow;
+        private FinalWindow _finalWindow;
+        private IRestart _restart;
 
-        private FinalScreen _finalScreenInstance;
+        private FinalWindow _finalWindowInstance;
 
-        public GameFinalaizer(StartScreen startScreen,FinalScreen finalScreen, IRestarter restarter )
+        public GameFinalaizer(StartingWindow startingWindow,FinalWindow finalWindow, IRestart restart )
         {
-            _startScreen = startScreen;
-            _finalScreen = finalScreen;
-            _restarter = restarter;
+            _startingWindow = startingWindow;
+            _finalWindow = finalWindow;
+            _restart = restart;
         }
 
         public void FinalGame()
         {
             Time.timeScale = 0;
-            _startScreen.gameObject.SetActive(false);
+            _startingWindow.gameObject.SetActive(false);
             ShoowScreen();
         }
 
         private void ShoowScreen()
         {
-            _finalScreenInstance = Object.Instantiate(_finalScreen);
-            _finalScreenInstance.RestartButton.onClick.AddListener(_restarter.Restart);
+            _finalWindowInstance = Object.Instantiate(_finalWindow);
+            _finalWindowInstance.RestartButton.onClick.AddListener(_restart.Restart);
         }
 
         public void DisableScreen()
         {
-            Object.Destroy(_finalScreenInstance.gameObject);
+            Object.Destroy(_finalWindowInstance.gameObject);
         }
     }
 }

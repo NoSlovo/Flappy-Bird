@@ -1,5 +1,5 @@
 using AppsFlyerSDK;
-using Pipes;
+using GameElements;
 using Player;
 using Screen;
 using Services;
@@ -8,18 +8,18 @@ using UnityEngine;
 
 namespace Bootstrapper
 {
-    public class Bootstrapper : MonoBehaviour, IRestarter
+    public class Bootstrapper : MonoBehaviour, IRestart
     {
-        [SerializeField] private StartScreen _startScreen;
-        [SerializeField] private FinalScreen _finalScreen;
-        [SerializeField] private Pipe pipe;
+        [SerializeField] private StartingWindow _startingWindow;
+        [SerializeField] private FinalWindow _finalWindow;
+        [SerializeField] private Pipes _pipesPrefab;
         [SerializeField] private Transform _spawnPoint;
         [SerializeField] private Flappy _player;
         [SerializeField] private Transform _playerInstancePoint;
 
-        private IPoolService<Pipe> _poolService;
+        private IPoolService<Pipes> _poolService;
         private SpawnerPipe _spawnerPipe;
-        private StartScreen _instanceScreen;
+        private StartingWindow _instanceScreen;
         private GameFinalaizer _finalaizer;
         private Flappy _playerInstance;
         private SaveSystem _saveSystem;
@@ -31,7 +31,7 @@ namespace Bootstrapper
 
         public void Start()
         {
-            _instanceScreen = Instantiate(_startScreen);
+            _instanceScreen = Instantiate(_startingWindow);
             _instanceScreen.ShowBestScore();
             _instanceScreen.HideObjects(true);
             DontDestroyOnLoad(this);
@@ -54,9 +54,9 @@ namespace Bootstrapper
 
         private void InitServices()
         {
-            _poolService = new PipesPoolService(pipe, _countInstance);
+            _poolService = new PipesPoolService(_pipesPrefab, _countInstance);
             _spawnerPipe = new SpawnerPipe(_poolService, _instanceScreen.Counter, _spawnPoint);
-            _finalaizer = new GameFinalaizer(_instanceScreen, _finalScreen, this);
+            _finalaizer = new GameFinalaizer(_instanceScreen, _finalWindow, this);
             _instanceScreen.Counter.Init();
             _spawnerPipe.Init();
         }

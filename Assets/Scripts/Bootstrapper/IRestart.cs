@@ -1,6 +1,6 @@
 namespace Bootstrapper
 {
-    public interface IRestarter
+    public interface IRestart
     {
         public void Restart()
         {

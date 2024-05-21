@@ -1,13 +1,13 @@
 using UnityEngine;
 
-namespace Pipes.Component
+namespace GameElements.Component
 {
-    public class MoveComponent
+    public class MovementComponent
     {
         private float _speed;
         private Transform _transform;
 
-        public MoveComponent(float speed, Transform transform)
+        public MovementComponent(float speed, Transform transform)
         {
             _speed = speed;
             _transform = transform;
